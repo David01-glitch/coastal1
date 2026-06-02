@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Coastal Retirement Life — a coastal living and beach retirement lifestyle blog for adults over 50.",
   "engines": {
-    "node": "20.x"
+    "node": ">=20"
   },
   "scripts": {
     "dev": "vite",
@@ -28,7 +28,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
-    "puppeteer-core": "^23.11.1",
+    "puppeteer": "^23.11.1",
     "tailwindcss": "^3.4.13",
     "vite": "^5.4.8"
   }

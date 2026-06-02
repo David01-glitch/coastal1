@@ -5,7 +5,7 @@
 // (no multi-hundred-MB Chromium download).
 import express from 'express';
 import compression from 'compression';
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -53,18 +53,18 @@ async function run() {
     console.error('dist/index.html not found — run the Vite build first.');
     process.exit(1);
   }
+  // Prefer a system Chrome if available (faster local dev); otherwise puppeteer
+  // uses its own bundled Chromium downloaded by `npm install`. Works on CI
+  // (Amplify, Vercel, Netlify, Heroku) without any Chrome pre-installation.
   const executablePath = findChrome();
-  if (!executablePath) {
-    console.error('No Chrome/Chromium found. Set CHROME_PATH to your browser binary.');
-    process.exit(1);
-  }
-
-  const server = await startServer();
-  const browser = await puppeteer.launch({
-    executablePath,
+  const launchOpts = {
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-  });
+  };
+  if (executablePath) launchOpts.executablePath = executablePath;
+
+  const server = await startServer();
+  const browser = await puppeteer.launch(launchOpts);
 
   let count = 0;
   try {
