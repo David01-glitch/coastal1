@@ -3,6 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
+        # Shared libs that puppeteer's bundled Chromium depends on at runtime.
+        # Amazon Linux 2023 (Amplify default image) is missing some by default.
+        # `|| true` keeps the build going if a package name varies on a newer image.
+        - "yum install -y nss atk at-spi2-atk cups-libs libdrm libxkbcommon libXcomposite libXdamage libXrandr mesa-libgbm alsa-lib pango cairo libXScrnSaver libXtst dbus-glib gtk3 || true"
         - npm ci
     build:
       commands:
@@ -14,3 +18,4 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
+      - ~/.cache/puppeteer/**/*
