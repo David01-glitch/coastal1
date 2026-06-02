@@ -1,0 +1,28 @@
+{
+  "name": "Coastal Retirement Life",
+  "description": "A coastal living and beach retirement lifestyle blog for adults over 50, pre-rendered to static HTML for SEO and Google Ads compliance.",
+  "repository": "https://github.com/your-org/coastal-retirement-life",
+  "keywords": ["coastal", "retirement", "beach", "lifestyle", "react", "vite", "express"],
+  "website": "https://www.coastalretirementlife.com",
+  "env": {
+    "NODE_ENV": {
+      "description": "Node environment",
+      "value": "production"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "scripts": {
+    "postdeploy": ""
+  },
+  "stack": "heroku-22"
+}

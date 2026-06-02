@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Coastal Retirement Life — all content is public and crawlable.
+Sitemap: https://www.coastalretirementlife.com/sitemap.xml
