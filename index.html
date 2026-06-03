@@ -14,45 +14,19 @@
       rel="stylesheet"
     />
 
-    <!-- Google Consent Mode v2 — defaults set BEFORE GA loads.
-         Region-based: EU/EEA/UK stays strictly denied (GDPR-safe);
-         rest of world gets analytics_storage granted so GA receives
-         normal traffic without depending on a cookie-banner click. -->
+    <!-- Google Consent Mode v2 — fully granted by default, worldwide.
+         No region restriction; GA + Ads capture every visitor immediately. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() { dataLayer.push(arguments); }
-      // 1) Strict default for EU/EEA + UK + CH/NO/IS/LI
       gtag('consent', 'default', {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        analytics_storage: 'denied',
-        functionality_storage: 'granted',
-        security_storage: 'granted',
-        region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','GB','IS','LI','NO','CH'],
-        wait_for_update: 500
-      });
-      // 2) Permissive default for the rest of the world
-      gtag('consent', 'default', {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
         analytics_storage: 'granted',
         functionality_storage: 'granted',
-        security_storage: 'granted',
-        wait_for_update: 500
+        security_storage: 'granted'
       });
-      // Re-apply any previously granted full consent from this device.
-      try {
-        if (localStorage.getItem('crl-consent') === 'granted') {
-          gtag('consent', 'update', {
-            ad_storage: 'granted',
-            ad_user_data: 'granted',
-            ad_personalization: 'granted',
-            analytics_storage: 'granted'
-          });
-        }
-      } catch (e) {}
     </script>
 
     <!-- GOOGLE TAG (GTAG.JS) -->
