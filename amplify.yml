@@ -3,13 +3,19 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Shared libs that puppeteer's bundled Chromium depends on at runtime.
-        # Amazon Linux 2023 (Amplify default image) is missing some by default.
+        # Shared libs that Chromium needs at runtime on Amazon Linux 2023.
         # `|| true` keeps the build going if a package name varies on a newer image.
         - "yum install -y nss atk at-spi2-atk cups-libs libdrm libxkbcommon libXcomposite libXdamage libXrandr mesa-libgbm alsa-lib pango cairo libXScrnSaver libXtst dbus-glib gtk3 || true"
         - npm ci
+        # Install Puppeteer's bundled Chromium so scripts/prerender.mjs can run.
+        - npx puppeteer browsers install chrome
+        # Resolve the installed Chrome binary path and export it for the build phase.
+        - export CHROME_PATH=$(node -e "const p=require('puppeteer');console.log(p.executablePath())")
+        - echo "CHROME_PATH=$CHROME_PATH" >> $HOME/.bashrc
+        - echo "Resolved CHROME_PATH=$CHROME_PATH"
     build:
       commands:
+        - export CHROME_PATH=$(node -e "const p=require('puppeteer');console.log(p.executablePath())")
         - npm run build
   artifacts:
     baseDirectory: dist
